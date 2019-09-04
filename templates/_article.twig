@@ -1,0 +1,29 @@
+{% extends "base.twig" %}
+
+{% set linkChain = [
+    { 'linkText': 'news', 'linkUrl': '/news' }
+] %}
+{% set articleCategory = 'Industry News' %}
+
+{% block content %}
+    {% include 'parts/_breadcrumbs' with { 'linkChain' : linkChain } %}
+    {% include 'parts/_pageheader' with {'headertext': entry.title} %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 articleContent">
+                <div class="subheaderLine">
+                    <span class="label">{{entry.calendarDate|date('l, d mm')}}</span> 
+                    <span class="label">{{articleCategory}}</span> 
+                    <div class="row">
+                        {% include 'parts/_contentSection' with {
+                            'contentItems': entry.contentBlock.all(),
+                            'extraclass':'articleBlock',
+                            'sectionclass': 'articleBody'}
+                         %}
+                    </div>                   
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% set defaultThumbnail = sitewideContent.auctionPlaceholderImage.one().url %}
+{% set personThumbnail = person.personImage.one() ? person.personImage.one().url : defaultThumbnail %}
+
+<div class="tileItem personTile">
+    <div style="background-image:url({{personThumbnail}})" class="tileImage"></div>
+    <div class="tileTitle">
+        <span class="title">{{person.title}}</span>
+    </div>
+    <div class="tileInfo">
+        <div class="infoTop">
+            {{person.personPosition}}
+        </div>
+    </div>
+</div>

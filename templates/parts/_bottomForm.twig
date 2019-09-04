@@ -1,0 +1,40 @@
+<section class="bottomFormSection">
+    <div class="container">
+        <div class="inner">
+            <h3 class="header">Join our Mailing List</h3>
+            <span class="subheader">
+                {{sitewideContent.bottomFormIntro}}
+            </span>
+
+            {% macro errorList(errors) %}
+                {% if errors %}
+                    <ul class="errors">
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endmacro %}
+
+            {% from _self import errorList %}
+
+            <form method="post" id="bottomForm" action="" accept-charset="UTF-8" class="styledForm bottomForm ajaxForm">
+                {{ csrfInput() }}
+                <input type="hidden" name="message[formName]" value="bottomForm">
+                <input type="hidden" name="action" value="contact-form/send">
+                <div class="inputsPlace">
+                    <input id="from-name" required placeholder="Name" type="text" name="fromName" value="{{ message.fromName ?? '' }}">
+                    <input id="from-email" required placeholder="Email" type="email" name="fromEmail" value="{{ message.fromEmail ?? '' }}">
+                </div>
+
+                <textarea hidden id="message" name="message">Joining mailing list</textarea>
+                {{ message is defined and message ? errorList(message.getErrors('message')) }}
+
+                <div class="success">Submission successful</div>
+                <div class="fail">Submission failed</div>
+
+                <input type="submit" value="SUBMIT" class="btn btnPrimary">
+            </form>
+        </div>
+    </div>
+</section>

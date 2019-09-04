@@ -1,0 +1,11 @@
+{% set extraclass = extraclass is defined ? extraclass : '' %}
+{% set sectionclass = sectionclass is defined ? sectionclass : '' %}
+
+<section class="pageContent {{sectionclass}}">
+    {% for oneBlock in contentItems %}
+        {% include 'parts/contentBlocks/_' ~ oneBlock.type with {
+            'block': oneBlock,
+            'extraclass': extraclass }
+         %}
+    {% endfor %}
+</section>

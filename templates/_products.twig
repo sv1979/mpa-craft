@@ -1,0 +1,30 @@
+{% extends "base.twig" %}
+
+{% set productsToShow = craft.entries()
+    .section('product')
+    .all() %}
+
+{% block content %}
+    {% include 'parts/_breadcrumbs' %}
+    {% include 'parts/_pageheader' with {'headertext': entry.title} %}
+
+    <section class="contentSection">
+        <div class="container">
+            <div class="tiles">
+                {% for product in productsToShow %} 
+                    {% include('parts/_productTile') with { 
+                        'product': product,
+                        'extraclass': 'listingTile',
+                        } %}            
+                {% endfor %}
+
+                <div class="tileItem emptyTile"></div>
+                <div class="tileItem emptyTile"></div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block subcontent %}
+    {% include 'parts/_bottomForm' %}
+{% endblock %}

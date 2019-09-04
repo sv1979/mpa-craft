@@ -1,0 +1,52 @@
+{% extends "base.twig" %}
+{% set menu_accent = 'white' %}
+{% set hometopImageDesktop = entry.desktopImage.one().url|default('http://placeimg.com/640/480/tech') %}
+{% set hometopImageMobile = entry.mobileImage.one().url|default('http://placeimg.com/320/200/tech') %}
+{% set hometopHeader = entry.headerText %}
+{% set hometopSubheader = entry.subheaderText %}
+{% set hometopLinks = entry.headerLinks %}
+{% set promotedAuctions = entry.auctionsToDisplay %}
+{% set leadersLinks = entry.leadersSectionLinks %}
+
+{% block content %}
+    <style>
+        .hometop {
+            background-image: url({{hometopImageDesktop}});
+        }
+        @media screen and (max-width: 720px) {
+            .hometop {
+                background-image: url({{hometopImageMobile}});
+            } 
+        }
+    </style>
+
+    <div class="hometop">
+        <div class="inner">
+            <div class="innerContent">
+                <h1 class="hometopHeader">{{ hometopHeader }}</h1>
+                <div class="hometopSubheader">{{ hometopSubheader }}</div>
+                <div class="hometopLinks">
+                    {% for link in hometopLinks.all() %}
+                        <a href="{{link.linkDestination.one().url}}" class="btn btnPrimary">
+                            {{link.linkText}}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <a href="#section2" class="scrollDown">
+                <span class="text">Scroll down</span>
+            </a>
+        </div>
+    </div>
+
+    <span id="section2"></span>
+    {% include 'parts/_auctionsIntro' with {'promotedAuctions' : promotedAuctions} %}
+
+    {% include 'parts/_productsIntro' %}
+    
+    {% include 'parts/_leadersSection'with {'links' : leadersLinks, 'headerText': entry.leadersSectionHeader} %}
+{% endblock %}
+
+{% block subcontent %}
+    {% include 'parts/_bottomForm' %}
+{% endblock %}

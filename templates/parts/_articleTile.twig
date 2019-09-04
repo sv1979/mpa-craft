@@ -1,0 +1,22 @@
+{% set defaultThumbnail = sitewideContent.auctionPlaceholderImage.one().url %}
+{% set articleThumbnail = article.thumbnailImage.one() ? article.thumbnailImage.one().getUrl('galleryThumbnail') : defaultThumbnail %}
+
+{% set className = extraclass is defined ? extraclass : '' %}
+{% set articleCategory = 'Industry News' %}
+{% set articleIntro = article.contentBlock.count ? article.contentBlock.one().textContent|striptags : '' %}
+
+<div class="tileItem articleTile {{className}}">
+    <a href="{{article.url}}" style="background-image:url({{articleThumbnail}})" class="tileImage"></a>
+    <div class="tileTitle">
+        <a href="{{article.url}}" class="title">{{article.title}}</a>    
+    </div>
+    <div class="tileInfo">
+        <div class="articleSubheader">
+            <span class="label">{{article.calendarDate|date('l, d mm')}}</span> 
+            <span class="label">{{articleCategory}}</span> 
+        </div>
+        <div class="articleIntro">
+            {{articleIntro|length > 200 ? articleIntro|slice(0, 200)~'...' : articleIntro}}
+        </div>
+    </div>
+</div>

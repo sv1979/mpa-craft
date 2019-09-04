@@ -1,0 +1,19 @@
+<div class="breadcrumbsPart">
+    <div class="container">
+        <ul class="breadcrumbs">
+            <li class="breadcrumbsItem">
+                <a href="{{ siteUrl }}" class="breadcrumbsText">Home</a>               
+            </li>
+            {% if linkChain is defined and linkChain|length > 0 %}
+                {% for onelink in linkChain %}
+                    <li class="breadcrumbsItem">
+                        <a href="{{ onelink.linkUrl }}" class="breadcrumbsText">{{ onelink.linkText }}</a>                
+                    </li>
+                {% endfor %}
+            {% endif %}
+            <li class="breadcrumbsItem">
+                <span class="breadcrumbsText">{{entry.title}}</span>               
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1400px;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  lgx: 1200px,
+  xl: 1470px
+) !default;
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  lgx: 1170px,
+  xl: 1430px
+) !default;
+
+$regular-desktop: 1200px;
+
+// COLORS
+$yellow: #ffe900;
+$yellowDark: #e8d613;
+$grey: #606060;
+$dirt: #707070;
+$fog: #969696;
+$mist: #adadad;
+$ash: #d9d9d9;
+$cloud: #f2f2f2;
+$ground: #2c2c2c;
+$red: #dd0000;
+$green: #009900;

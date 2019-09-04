@@ -1,0 +1,42 @@
+{% set defaultThumbnail = sitewideContent.auctionPlaceholderImage.one().url %}
+{% set auctionThumbnail = auction.thumbnailImage.one() ? auction.thumbnailImage.one().url : defaultThumbnail %}
+
+{% switch auction.auctionStatus %}
+    {% case 'workInProgress'  %}
+        {% set status = 'workInProgress' %}
+    {% case 'hidden'  %}
+        {% set status = 'statusHidden' %}    
+    {% default %}
+        {% set status = 'liveNow' %}
+{% endswitch %}
+
+{% set className = extraclass is defined ? extraclass : '' %}
+{% set itemsCount = showCount is defined and showCount == true ? auction.galleryImages.count : false %}
+
+<div class="tileItem auctionTile {{className}}">
+    <a href="{{auction.url}}" style="background-image:url({{auctionThumbnail}})" class="tileImage"></a>
+    <div class="tileTitle">
+        <a href="{{auction.url}}" class="title">{{auction.title}}</a>
+        {% if itemsCount %}
+            <span class="counter">{{ itemsCount }}</span>
+        {% else %}
+            <span class="badge {{status}}">{{ auction.auctionStatus.label }}</span>
+        {% endif %}      
+    </div>
+    <div class="tileInfo">
+        <div class="infoPiece date">
+            <i class="icon far fa-calendar"></i>
+            <span class="label">{{auction.calendarDate|date('l, d mm')}}</span> 
+        </div>
+        <div class="infoPiece time">
+            <i class="icon far fa-clock"></i>
+            <span class="label">{{auction.auctionTime}}</span> 
+        </div>
+        <a class="infoPiece location"
+         href="https://maps.google.com/?q={{ auction.location.address|url_encode }}&output=classic"
+         target="_blank">
+            <i class="icon fas fa-map-marker-alt"></i>
+            <span class="label">{{auction.location.parts.number}}, {{auction.location.parts.address}}</span> 
+        </a>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<header>
+    <div class="container headerContainer accent_{{accent}}">
+        <div class="headerContainerInner">
+            <a href="/" class="homeLink">
+                {% if (accent == 'white') %}
+                <img src='/images/logo_white.svg' alt="MPA">
+                {% else %}
+                <img src='/images/mpa_logo.png' alt="MPA">
+                {% endif %}
+            </a>
+
+            <div class="rightPart">
+                {{ craft.olivemenus.getMenuHTML('topmenu',{ 'menu-id': 'topmenu', 'menu-class': 'topmenu' }) }}
+                <a href="#" class="btn btnSecondary">Direct Sale</a>
+                <a href="#" class="btn btnPrimary">Online Bidding</a>
+            </div>
+        </div>
+    </div>
+</header>

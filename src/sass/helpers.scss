@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap');
+@import "vars";
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+}
+
+@mixin headerBold($size: 40px) {
+    font-size: $size;
+    letter-spacing: calc(#{$size} / -12);
+    font-weight: 700;
+}
+
+@mixin subheaderBold($size: 16px) {
+    font-size: $size;
+    letter-spacing: -.5px;
+    font-weight: 500;
+}
+
+@mixin textReg($size: 16px) {
+    font-size: $size;
+    letter-spacing: -.5px;
+    font-weight: 400;
+}
+
+@mixin textMediumWide($size: 16px) {
+    font-size: $size;
+    letter-spacing: calc(#{$size} / 12);
+    font-weight: 500;
+}
+
+.bgAsh {
+    background-color: $ash;
+}
+
+.btn {
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 13px 10px 11px;
+    display: inline-block;
+    min-width: 180px;
+    border-radius: 0;
+    border-width: 2px;
+    border-style: solid;
+    font-size: 14px;
+    position: relative;
+    &.btnPrimary {
+        background-color: $yellow;
+        color: $black;
+        &:hover {
+            background-color: $yellowDark;
+        }
+    }
+    &.btnSecondary {
+        background-color: transparent;
+        color: currentColor;
+        border-color: currentColor;
+        &:hover {
+            border-color: $yellow;
+            color: $yellow;
+        }
+    }
+    &.btnBlack {
+        background-color: black;
+        color: white;
+        &:hover {
+            background-color: $dirt;
+        }
+    }
+}
+
+.styledForm {
+    [type='text'], [type='email'], [type='tel'] {
+        border: none;
+        padding: 0 15px;
+        height: 50px;
+        width: 330px;
+    }
+    textarea {
+        border: none;
+        padding: 15px;
+    }
+    .success {
+        display: none;
+        color: $green;
+    }
+    .fail {
+        display: none;
+        color: $green;
+    }
+    .success, .fail {
+        &.shown {
+            display: block;
+        }
+    }
+}
+
+

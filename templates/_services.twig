@@ -1,0 +1,23 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    {% include 'parts/_breadcrumbs' %}
+    {% include 'parts/_pageheader' with {'headertext': entry.title} %}
+
+    <section class="contentSection">
+        <div class="container">
+            <div class="row linkTiles serviceLinks">
+                {% for service in entry.servicesToDisplay.all() %} 
+                    {% include('parts/_serviceLink') with { 
+                        'service': service,
+                        'extraclass': 'col-lg-3 col-md-6' }
+                        %}            
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block subcontent %}
+    {% include 'parts/_bottomForm' %}
+{% endblock %}

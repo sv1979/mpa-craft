@@ -1,0 +1,8 @@
+<div class="location">
+    <h3 class="locationHeader">{{headertext}}</h3>
+    <div class="locationContent">{{subheader}}</div>
+    <div class="locationDescription">{{description}}</div>
+    <div class="locationMap">
+        <iframe src="https://www.google.com/maps/embed/v1/place?key={{craft.maps.mapToken}}&q={{ commonInformation.location.address|url_encode }}" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+    </div>
+</div>

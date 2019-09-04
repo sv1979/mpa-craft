@@ -1,0 +1,95 @@
+{% set nextAuctions = craft.entries()
+    .section('auction')
+    .auctionStatus(['liveNow', 'workInProgress'])
+    .orderBy('calendarDate asc')
+    .limit(3)
+    .all() %}
+
+<footer class="mainFooter">
+    <div class="container">
+        <div class="logosLine">
+            <img src='/images/logo_white.svg' alt="MPA">
+            <img src='/images/thorntons_logo.svg' alt="Thorntons">
+        </div>
+
+        <div class="infoPart">
+            <div class="inner">
+                <div class="infoBlock">
+                    <a href="tel:{{ commonInformation.phoneNumber|replace({' ': ''}) }}" class="link addressLink">
+                        {{ commonInformation.phoneNumber }}
+                    </a>
+                    <a href="mailto:{{ commonInformation.emailAddress }}" class="link addressLink">
+                        {{ commonInformation.emailAddress }}
+                    </a>
+                    <a href="https://maps.google.com/?q={{ commonInformation.location.address|url_encode }}&output=classic"
+                        target="_blank" class="link addressLink">
+                        <span class="addressLine">
+                            {{ commonInformation.location.parts.number }}
+                            {{ commonInformation.location.parts.address }}
+                            {{ commonInformation.location.parts.city }}
+                            {{ commonInformation.location.parts.postcode }}
+                        </span>
+                        <span class="addressLine">
+                            {{ commonInformation.poBoxText }}
+                        </span>
+                        <span class="addressLine">
+                            {{ commonInformation.location.parts.country }}
+                        </span>
+                    </a>
+                </div>
+
+                <div class="infoBlock">
+                    <span class="infoHeader">About us</span>
+                    {{ craft.olivemenus.getMenuHTML('footerAbout',{ 'menu-id': 'footerAbout', 'menu-class': 'footerMenu' }) }}
+                </div>
+
+                <div class="infoBlock">
+                    <span class="infoHeader">Our next auctions</span>
+                    <div id="footerAbout1" class="menu footerMenu">
+                        <ul>
+                            {% for auction in nextAuctions %}
+                                <li id="{{auction.id}}" class="menu-item ">
+                                    <a href="{{auction.url}}">{{auction.title}}</a>
+                                </li>
+                            {% endfor %}                     
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="infoBlock">
+                    <span class="infoHeader">Services</span>
+                    {{ craft.olivemenus.getMenuHTML('footerServices',{ 'menu-id': 'footerServices', 'menu-class': 'footerMenu' }) }}
+                </div>
+            </div>
+            <img src='/images/aa_logo.svg' alt="AA" class="aalogo_img">
+        </div>
+    </div>
+</footer>
+
+<footer class="bottomFooter">
+    <div class="container">
+        <div class="bottomInner">
+            <div class="leftPart">
+                <a href="#" class="social facebook">
+                    <i class="fab fa-facebook-square"></i>
+                </a>
+                <a href="#" class="social linkedin">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+
+                <span class="copyrightText">
+                    Copyright &copy; 2019 Machinery and Plant Auctions
+                </span>
+            </div>
+
+            <div class="rightPart">
+                <div class="websiteBy">
+                    Website by 
+                    <a href="https://fabricdigital.co.nz/" target="_blank">
+                        <img src='/images/fd_logo.png' alt="Fabric Digital">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

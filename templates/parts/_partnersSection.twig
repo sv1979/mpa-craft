@@ -1,0 +1,15 @@
+<section class="contentSection partnersSection">
+    <div class="container">
+        <div class="headerPart">
+            <h3 class="header">Our Partners</h3>
+        </div>
+
+        <div class="parnerLogos row">
+            {% for logo in partners %}
+                <div class="col-sm logoPlace">
+                    <img src="{{logo.url}}" alt="{{logo.title}}" class="logoImg">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

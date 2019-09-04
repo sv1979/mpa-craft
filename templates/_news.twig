@@ -1,0 +1,30 @@
+{% extends "base.twig" %}
+
+{% set articlesToShow = craft.entries()
+    .section('articles')
+    .orderBy('calendarDate desc')
+    .all() %}
+
+{% block content %}
+    {% include 'parts/_breadcrumbs' %}
+    {% include 'parts/_pageheader' with {'headertext': entry.title} %}
+
+    <section class="contentSection">
+        <div class="container">
+            <div class="tiles">
+                {% for article in articlesToShow %} 
+                    {% include('parts/_articleTile') with { 
+                        'article': article,
+                        'extraclass': 'listingTile',
+                        } %}            
+                {% endfor %}
+
+                <div class="tileItem emptyTile"></div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block subcontent %}
+    {% include 'parts/_bottomForm' %}
+{% endblock %}

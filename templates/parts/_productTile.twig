@@ -1,0 +1,24 @@
+{% set defaultThumbnail = sitewideContent.auctionPlaceholderImage.one().url %}
+{% set productThumbnail = product.productImages.one() ? product.productImages.one().url : defaultThumbnail %}
+{% set className = extraclass is defined ? extraclass : '' %}
+
+<div class="tileItem productTile {{className}}">
+    <div style="background-image:url({{productThumbnail}})" class="tileImage"></div>
+    <div class="tileTitle">
+        <span class="title">{{product.title}}</span>
+    </div>
+    <div class="tileInfo">
+        <div class="infoTop">
+            <span class="infoLeft">
+                S/N: {{product.productNumber}}
+            </span>
+            <span class="infoRight">
+                Lot: {{product.lotNumber}}
+            </span>
+        </div>
+        <div class="infoSpecs">
+            {{product.productSpecs}}
+        </div>
+    </div>
+    <a href="{{product.url}}" class="btn btnBlack productLink">See more</a>
+</div>

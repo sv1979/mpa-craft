@@ -1,0 +1,20 @@
+{% set featuredProducts = craft.entries()
+    .section('product')
+    .showOnHomepage(1)
+    .limit(4)
+    .all() %}
+
+<section class="contentSection bgAsh productsIntro">
+    <div class="container">
+        <div class="headerPart">
+            <h3 class="header">Featured Products</h3>
+            <a href="/products" class="btn btnPrimary">Load more</a>
+        </div>
+
+        <div class="tiles">
+            {% for product in featuredProducts %} 
+                {% include('parts/_productTile') with { 'product': product } %}            
+            {% endfor %}
+        </div>
+    </div>
+</section>

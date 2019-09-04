@@ -1,0 +1,26 @@
+{% set blockHeader = block.header %}
+{% set blockText = block.textContent %}
+{% set blockImage = block.blockImage.one().url | default(null) %}
+{% set className = extraclass is defined ? extraclass : '' %}
+
+<div class="contentBlock imageAndText {{className}}">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                {% if blockImage != null %}
+                <img src="{{blockImage}}" alt="{{blockHeader}}" class="blockImage"/>
+                {% endif %}
+            </div>
+            <div class="col-sm-6 textPart">
+                <div class="inner">
+                    {% if blockHeader != '' %}
+                        <h4 class="blockHeader">{{blockHeader}}</h4>
+                    {% endif %}
+                    {% if blockText != '' %}
+                        <div class="blockText">{{blockText}}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

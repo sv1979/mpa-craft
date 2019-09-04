@@ -1,0 +1,79 @@
+{% extends "base.twig" %}
+
+{% set linkChain = [
+    { 'linkText': 'featured products', 'linkUrl': '/products' }
+] %}
+
+{% set relatedAuction = entry.relatedAuction.one() %}
+
+{% block content %}
+    {% include 'parts/_breadcrumbs' with { 'linkChain' : linkChain } %}
+    <div class="productWrap">
+        <div class="container productPlace">
+            <div class="row">
+                <div class="col-sm-6">
+                    {% include 'parts/_imageWithThumbnails' with {'pictures' : entry.productImages} %}
+                </div>
+                <div class="col-sm-6">
+                    <h1 class="productTitle">{{entry.title}}</h1>
+                    <div class="productLinks">
+                        <button class="btn btnPrimary" data-toggle="modal" data-target="#contactModal">Enquire</button>
+                        <a href="mailto:?body={{entry.title}}&subject={{entry.title}}" class="btn btnSecondary">Share</a>
+                        <div class="productNav">
+                            <ul class="nav nav-tabs" id="navTabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Product Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="auction-tab" data-toggle="tab" href="#auction" role="tab" aria-controls="auction" aria-selected="false">Auction Details</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="productContent">
+                            <div class="tab-content" id="tabContent">
+                                <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
+                                    <div class="productDescription">{{ entry.description }}</div>
+                                </div>
+                                <div class="tab-pane fade auctionDescription" id="auction" role="tabpanel" aria-labelledby="auction-tab">
+                                    <h4>{{ relatedAuction.title }}</h4>
+                                    <div class="infoLine">
+                                        <div class="infoPiece date">
+                                            <i class="icon far fa-calendar"></i>
+                                            <span class="label">{{relatedAuction.calendarDate|date('l, d mm')}}</span> 
+                                        </div>
+                                        <div class="infoPiece time">
+                                            <i class="icon far fa-clock"></i>
+                                            <span class="label">{{relatedAuction.auctionTime}}</span> 
+                                        </div>
+                                        <a class="infoPiece location"
+                                        href="https://maps.google.com/?q={{ relatedAuction.location.address|url_encode }}&output=classic"
+                                        target="_blank">
+                                            <i class="icon fas fa-map-marker-alt"></i>
+                                            <span class="label">{{relatedAuction.location.parts.number}}, {{relatedAuction.location.parts.address}}</span> 
+                                        </a>
+                                    </div>
+                                    <div class="infoLine">
+                                        <a class="infoPiece" href="tel:{{relatedAuction.phoneNumber|replace({' ': ''})}}">
+                                            <i class="icon fas fa-phone"></i>
+                                            <span class="label">{{relatedAuction.phoneNumber}}</span> 
+                                        </a>
+                                        <a class="infoPiece" href="mailto:{{relatedAuction.emailAddress}}">
+                                            <i class="icon far fa-envelope"></i>
+                                            <span class="label">{{relatedAuction.emailAddress}}</span> 
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block subcontent %}
+    {% include 'parts/_contactModal' %}
+    {% include 'parts/_bottomForm' %}
+{% endblock %}
+

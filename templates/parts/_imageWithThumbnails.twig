@@ -1,0 +1,15 @@
+{% set allImages = pictures.all() %}
+{% set topImage = allImages[0] %}
+
+<div class="imageBlock" id="imageBlock">
+    <img class="topImage" id="topImage" src="{{topImage.url}}">
+
+    <div class="thumbnails">
+        {% for oneimage in allImages %}
+            <div 
+            class="thumbnailItem" 
+            style="background-image:url({{ oneimage.getUrl('galleryThumbnail') }})"
+            data-mainimage={{ oneimage.url }}></div>
+        {% endfor %}
+    </div>
+</div>

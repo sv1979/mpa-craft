@@ -1,0 +1,16 @@
+<section class="contentSection teamSection" id="team">
+    <div class="container">
+        <div class="headerPart">
+            <h3 class="header">Meet our Team</h3>
+        </div>
+
+        <div class="tiles">
+            {% for person in people %} 
+                {% include('parts/_personTile') with { 'person': person } %}            
+            {% endfor %}
+
+            <div class="tileItem emptyTile"></div>
+            <div class="tileItem emptyTile"></div>
+        </div>
+    </div>
+</section>

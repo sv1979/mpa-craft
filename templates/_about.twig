@@ -1,0 +1,32 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    {% include 'parts/_breadcrumbs' %}
+    {% include 'parts/_pageheader' with {'headertext': entry.title} %}
+    {% include 'parts/_contentSection' with {'contentItems': entry.contentBlock.all()} %}
+    {% include 'parts/_teamSection' with {'people': entry.teamMembers.all()} %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6" id="location">
+                {% include 'parts/_sm_location' with {
+                    'headertext': entry.headerText,
+                    'subheader': entry.subheaderText,
+                    'description': entry.description,
+                    } %}
+            </div>
+            <div class="col-sm-6" id="faqs">
+                {% include 'parts/_sm_faq' with {
+                    'headertext': entry.faqSubheader,
+                    'questions': entry.faqToDisplay.all()
+                    } %}
+            </div>
+        </div>
+    </div>
+
+    {% include 'parts/_partnersSection' with {'partners': entry.partnerLogos.all()} %}
+{% endblock %}
+
+{% block subcontent %}
+    {% include 'parts/_bottomForm' %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% set defaultImage = sitewideContent.auctionPlaceholderImage.one().url %}
+{% set linkImage = content.image|length > 0 ? content.image.one().url : defaultImage %}
+{% set className = extraclass is defined ? extraclass : '' %}
+
+<div class="blockWrap {{extraclass}}">
+    <div class="linkBlock" style="background-image:url({{linkImage}})">
+        <div class="inner">
+            <h4 class="linkHeader">{{content.header}}</h4>
+            <div class="linkText">{{content.textContent}}</div>
+            <a href="{{content.destination.one().url}}" class="btn btnBlack linkBtn">{{content.buttonLabel}}</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,117 @@
+{% extends "base.twig" %}
+
+{% set linkChain = [
+    { 'linkText': 'auctions', 'linkUrl': '/auctions' }
+] %}
+
+{% set galleryImages = entry.galleryImages.all() %}
+
+{% block content %}
+    {% include 'parts/_breadcrumbs' with { 'linkChain' : linkChain } %}
+
+    <div class="auctionHeaderPlace">
+        <div class="container">
+            <div class="auctionHeader">
+                <div class="leftPart">
+                    <h1 class="auctionTitle">{{entry.title}}</h1>
+
+                    <div class="infoLine">
+                        <div class="infoPiece date">
+                            <i class="icon far fa-calendar"></i>
+                            <span class="label">{{entry.calendarDate|date('l, d mm')}}</span> 
+                        </div>
+                        <div class="infoPiece time">
+                            <i class="icon far fa-clock"></i>
+                            <span class="label">{{entry.auctionTime}}</span> 
+                        </div>
+                        <a class="infoPiece location"
+                        href="https://maps.google.com/?q={{ entry.location.address|url_encode }}&output=classic"
+                        target="_blank">
+                            <i class="icon fas fa-map-marker-alt"></i>
+                            <span class="label">{{entry.location.parts.number}}, {{entry.location.parts.address}}</span> 
+                        </a>
+                    </div>
+                    <div class="infoLine">
+                        <a class="infoPiece" href="tel:{{entry.phoneNumber|replace({' ': ''})}}">
+                            <i class="icon fas fa-phone"></i>
+                            <span class="label">{{entry.phoneNumber}}</span> 
+                        </a>
+                        <a class="infoPiece" href="mailto:{{entry.emailAddress}}">
+                            <i class="icon far fa-envelope"></i>
+                            <span class="label">{{entry.emailAddress}}</span> 
+                        </a>
+                    </div>
+                </div>
+                <div class="rightPart">
+                    <a href="#" class="btn btnPrimary">Register</a>
+                    {% if entry.catalogue.count > 0 %}
+                        <a href="{{entry.catalogue.one().url}}" class="btn btnSecondary" target="_blank">View catalogue</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="auctionNavigation">
+        <div class="container">
+            <div class="inner">
+                <div class="leftPart">
+                    <ul class="nav nav-tabs" id="navTabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="gallery-tab" data-toggle="tab" href="#gallery" role="tab" aria-controls="gallery" aria-selected="true">Auction Gallery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">Auction Details</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="terms-tab" data-toggle="tab" href="#terms" role="tab" aria-controls="terms" aria-selected="false">Terms and Conditions</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="rightPart">
+                    <span class="count">{{entry.galleryImages.count}} items</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="auctionContent container">
+        <div class="tab-content" id="tabContent">
+            <div class="tab-pane fade show active" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
+                <div class="tiles">
+                    {% for item in galleryImages %}
+                        <a href="{{item.url}}" data-lightbox="gallery" data-title="{{item.title}}" class="tileItem galleryTile">
+                            <div class="imagePart" style="background-image:url({{item.getUrl('galleryThumbnail')}})">
+                                <div class="imageTitle">{{item.title}}</div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
+                <div class="row">
+                    <div class="col-sm">
+                        <h5 class="detailsHeader">Description</h5>
+                        <div class="auctionDescription">
+                            {{entry.description}}
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <h5 class="detailsHeader">Auction Location</h5>
+                        <div class="locationMap">
+                            <iframe src="https://www.google.com/maps/embed/v1/place?key={{craft.maps.mapToken}}&q={{ entry.location.address|url_encode }}" width="600" height="320" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="terms" role="tabpanel" aria-labelledby="terms-tab">
+                <h5 class="detailsHeader">Terms and Conditions</h5>
+                {{entry.termsAndConditions}}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block subcontent %}
+    {% include 'parts/_bottomForm' %}
+{% endblock %}

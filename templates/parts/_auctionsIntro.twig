@@ -1,0 +1,27 @@
+{% set auctionsToShow = promotedAuctions.all() %}
+
+{% switch auctionsToShow|length %}
+    {% case 3 %}
+        {% set notEnoughTiles = 'notEnough_3' %}
+    {% case 2 %}
+        {% set notEnoughTiles = 'notEnough_2' %}
+    {% case 1 %}
+        {% set notEnoughTiles = 'notEnough_2' %}
+    {% default %} 
+        {% set notEnoughTiles = '' %}   
+{% endswitch %}
+
+<section class="contentSection auctionsIntro">
+    <div class="container">
+        <div class="headerPart">
+            <h3 class="header">Upcoming Auctions</h3>
+            <a href="/auctions" class="btn btnPrimary">View All</a>
+        </div>
+
+        <div class="tiles {{notEnoughTiles}} ">
+            {% for auction in auctionsToShow %} 
+                {% include('parts/_auctionTile') with { 'auction': auction } %}            
+            {% endfor %}
+        </div>
+    </div>
+</section>

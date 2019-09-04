@@ -1,0 +1,13 @@
+{% set defaultImage = sitewideContent.auctionPlaceholderImage.one().url %}
+{% set linkImage = service.image|length > 0 ? service.image.one().url : defaultImage %}
+{% set className = extraclass is defined ? extraclass : '' %}
+
+<div class="blockWrap {{extraclass}}">
+    <div class="linkBlock" style="background-image:url({{linkImage}})">
+        <div class="inner">
+            <h4 class="linkHeader">{{service.title}}</h4>
+            <div class="linkText">{{service.introText}}</div>
+            <a href="{{service.url}}" class="btn btnBlack linkBtn">See more</a>
+        </div>
+    </div>
+</div>
