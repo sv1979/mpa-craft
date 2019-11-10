@@ -4,17 +4,19 @@
     .limit(4)
     .all() %}
 
-<section class="contentSection bgAsh productsIntro">
+<section class="contentSection bgAsh productsIntro ">
     <div class="container">
-        <div class="headerPart">
+        <div class="headerPart" data-aos="fade-up">
             <h3 class="header">Featured Products</h3>
-            <a href="/products" class="btn btnPrimary">Load more</a>
+            <a href="/products" class="btn btnPrimary onlyDesktop">Load more</a>
         </div>
 
-        <div class="tiles">
+        <div class="tiles row">
             {% for product in featuredProducts %} 
-                {% include('parts/_productTile') with { 'product': product } %}            
+                {% include('parts/_productTile') with { 'product': product, 'extraclass': 'col-lgx-3 col-md-6' } %}            
             {% endfor %}
         </div>
+
+        <a href="/products" class="btn btnPrimary onlyMobile">Load more</a>
     </div>
 </section>

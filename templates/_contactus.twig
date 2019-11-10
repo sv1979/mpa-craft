@@ -1,5 +1,80 @@
 {% extends "base.twig" %}
+{% set pageTitle = entry.seoTitle ? entry.seoTitle : entry.title %}
+{% set pageDescription = entry.seoDescription ? entry.seoDescription : entry.title %}
 
 {% block content %}
-    <h2>{{entry.title}}</h2>
+    {% include 'parts/_breadcrumbs' %}
+    {% include 'parts/_pageheader' with {'headertext': entry.title} %}
+
+    <div class="contactWrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 contactContent" data-aos="fade-up">
+                    <h3 class="contentHeader">Contact Details</h3>
+                    <div class="contentText">
+                        {{entry.contentText}}
+                    </div>
+                    <div class="row contactData">
+                        <div class="col-xs-12 col-md-5 col-lg-4 dataBlock">
+                            <h6>Phone</h6>
+                            <a href="tel:{{ commonInformation.phoneNumber|replace({' ': ''}) }}" class="addressLink">
+                                {{ commonInformation.phoneNumber }}
+                            </a>
+                        </div>
+                        <div class="col-xs-12 col-md-7 col-lg-8 dataBlock">
+                            <h6>Email</h6>
+                            <a href="mailto:{{ commonInformation.emailAddress }}" class="addressLink">
+                                {{ commonInformation.emailAddress }}
+                            </a>
+                        </div>
+                        <div class="col col-md-5 col-lg-4 dataBlock">
+                            <h6>Address</h6>
+                            <a href="https://maps.google.com/?q={{ commonInformation.location.address|url_encode }}&output=classic"
+                                target="_blank" class="addressLink">
+                                <span class="addressLine">
+                                    {{ commonInformation.location.parts.number }}
+                                    {{ commonInformation.location.parts.address }}
+                                </span>
+                                <span class="addressLine">
+                                    {{ commonInformation.location.parts.city }}
+                                    {{ commonInformation.location.parts.postcode }}
+                                </span>
+                                <span class="addressLine">
+                                    {{ commonInformation.location.parts.country }}
+                                </span>
+                            </a>
+                        </div>
+                        <div class="col col-md-7 col-lg-8 dataBlock">
+                            <h6>Postal Address</h6>
+                            <div class="addressLink">
+                                <span class="addressLine">
+                                    {{ commonInformation.poBoxText }}
+                                </span>
+                                <span class="addressLine">
+                                    {{ commonInformation.location.parts.city }}
+                                    {{ commonInformation.location.parts.postcode }}
+                                </span>
+                                <span class="addressLine">
+                                    {{ commonInformation.location.parts.country }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-up">
+                    <h3 class="contentHeader">Contact Form</h3>
+                    <div class="contentText">
+                        {{entry.contactFormIntro}}
+                    </div>
+                    {% include 'parts/_contactForm' with {'predefinedId' : 'contactPageForm'} %}
+                </div>
+
+                <div class="col-sm-12" data-aos="fade-up">
+                    <div class="locationMap">
+                        <iframe src="https://www.google.com/maps/embed/v1/place?key={{craft.maps.mapToken}}&q={{ commonInformation.location.address|url_encode }}" width="100%" height="650" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

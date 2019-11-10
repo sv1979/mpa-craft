@@ -1,7 +1,8 @@
 {% set defaultThumbnail = sitewideContent.auctionPlaceholderImage.one().url %}
 {% set personThumbnail = person.personImage.one() ? person.personImage.one().url : defaultThumbnail %}
+{% set className = extraclass is defined ? extraclass : '' %}
 
-<div class="tileItem personTile">
+<div class="tileItem personTile {{className}}" data-aos="fade-up">
     <div style="background-image:url({{personThumbnail}})" class="tileImage"></div>
     <div class="tileTitle">
         <span class="title">{{person.title}}</span>

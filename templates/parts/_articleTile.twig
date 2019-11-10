@@ -5,7 +5,7 @@
 {% set articleCategory = 'Industry News' %}
 {% set articleIntro = article.contentBlock.count ? article.contentBlock.one().textContent|striptags : '' %}
 
-<div class="tileItem articleTile {{className}}">
+<div class="tileItem articleTile {{className}}" data-aos="fade-up">
     <a href="{{article.url}}" style="background-image:url({{articleThumbnail}})" class="tileImage"></a>
     <div class="tileTitle">
         <a href="{{article.url}}" class="title">{{article.title}}</a>    

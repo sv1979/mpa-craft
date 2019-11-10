@@ -2,14 +2,24 @@
 {% set topImage = allImages[0] %}
 
 <div class="imageBlock" id="imageBlock">
-    <img class="topImage" id="topImage" src="{{topImage.url}}">
-
-    <div class="thumbnails">
+    <div class="bigImages" id="bigImagesPlace">
         {% for oneimage in allImages %}
-            <div 
-            class="thumbnailItem" 
-            style="background-image:url({{ oneimage.getUrl('galleryThumbnail') }})"
-            data-mainimage={{ oneimage.url }}></div>
+            <a href="{{oneimage.url}}"
+               data-lightbox="gallery"
+               data-title="{{oneimage.title}}" class="bigImageLink">
+                <img src="{{ oneimage.getUrl('sliderThumbnail') }}" class="bigImagePicture"/>
+            </a>         
+        {% endfor %}
+    </div>
+
+    <div class="thumbnails" id="thumbnailsPlace">
+        {% for oneimage in allImages %}
+            <div class="thumbnailWrap">
+                <div 
+                    class="thumbnailItem" 
+                    style="background-image:url({{ oneimage.getUrl('galleryThumbnail') }})"
+                    data-mainimage={{ oneimage.url }}></div>
+            </div>
         {% endfor %}
     </div>
 </div>

@@ -13,7 +13,7 @@
 {% set className = extraclass is defined ? extraclass : '' %}
 {% set itemsCount = showCount is defined and showCount == true ? auction.galleryImages.count : false %}
 
-<div class="tileItem auctionTile {{className}}">
+<div class="tileItem auctionTile {{className}}" data-aos="fade-up">
     <a href="{{auction.url}}" style="background-image:url({{auctionThumbnail}})" class="tileImage"></a>
     <div class="tileTitle">
         <a href="{{auction.url}}" class="title">{{auction.title}}</a>

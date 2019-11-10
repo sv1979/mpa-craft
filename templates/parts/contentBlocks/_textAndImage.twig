@@ -3,7 +3,7 @@
 {% set blockImage = block.blockImage.one().url | default(null) %}
 {% set className = extraclass is defined ? extraclass : '' %}
 
-<div class="contentBlock textAndImage {{className}}">
+<div class="contentBlock textAndImage {{className}}" data-aos="fade-up">
     <div class="container">
         <div class="row">
             <div class="col-sm-6 textPart">

@@ -1,3 +1,5 @@
+{% set formId = predefinedId is defined ? predefinedId : 'enquiryForm' %}
+
 <div class="contactFormPlace">
     <span class="subheader">
         {{sitewideContent.contactFormIntro}}
@@ -17,7 +19,7 @@
 
     <form method="post" id="popupForm" action="" accept-charset="UTF-8" class="styledForm contactForm ajaxForm">
         {{ csrfInput() }}
-        <input type="hidden" name="message[formName]" value="enquiryForm">
+        <input type="hidden" name="message[formName]" value={{formId}}>
         <input type="hidden" name="action" value="contact-form/send">
         <div class="bigForm row">
             <div class="col-sm-6 formPiece">

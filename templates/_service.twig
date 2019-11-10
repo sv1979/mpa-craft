@@ -1,8 +1,10 @@
 {% extends "base.twig" %}
-
+{% set pageTitle = entry.seoTitle ? entry.seoTitle : entry.title %}
+{% set pageDescription = entry.seoDescription ? entry.seoDescription : entry.title %}
 {% set linkChain = [
     { 'linkText': 'Services', 'linkUrl': '/services' }
 ] %}
+{% set columnClass = entry.mainImage|length > 0 ? 'col-md-6' : 'col-md' %}
 
 {% block content %}
     {% include 'parts/_breadcrumbs' with { 'linkChain' : linkChain } %}
@@ -11,13 +13,13 @@
     <div class="serviceWrap">
         <div class="container servicePlace">
             <div class="row">
-                <div class="col-sm serviceContent">
+                <div class="{{columnClass}} serviceContent">
                     {{entry.contentText}}
 
                     <button class="btn btnPrimary" data-toggle="modal" data-target="#contactModal">Enquire</button>
                 </div>
                 {% if entry.mainImage|length > 0 %}
-                    <div class="col-sm">
+                    <div class="col-md-6 serviceContent">
                         <img src="{{ entry.mainImage.one().url }}" alt="{{entry.title}}" class="serviceImage">
                     </div>
                 {% endif %}

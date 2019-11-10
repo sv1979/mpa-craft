@@ -1,5 +1,5 @@
 {% set defaultImage = sitewideContent.auctionPlaceholderImage.one().url %}
-{% set linkImage = service.image|length > 0 ? service.image.one().url : defaultImage %}
+{% set linkImage = service.thumbnailImage|length > 0 ? service.thumbnailImage.one().url : defaultImage %}
 {% set className = extraclass is defined ? extraclass : '' %}
 
 <div class="blockWrap {{extraclass}}">

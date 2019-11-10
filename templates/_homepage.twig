@@ -1,8 +1,11 @@
 {% extends "base.twig" %}
+{% set pageTitle = entry.seoTitle ? entry.seoTitle : entry.title %}
+{% set pageDescription = entry.seoDescription ? entry.seoDescription : entry.title %}
 {% set menu_accent = 'white' %}
 {% set hometopImageDesktop = entry.desktopImage.one().url|default('http://placeimg.com/640/480/tech') %}
 {% set hometopImageMobile = entry.mobileImage.one().url|default('http://placeimg.com/320/200/tech') %}
 {% set hometopHeader = entry.headerText %}
+{% set headerTextMobile = entry.headerTextMobile %}
 {% set hometopSubheader = entry.subheaderText %}
 {% set hometopLinks = entry.headerLinks %}
 {% set promotedAuctions = entry.auctionsToDisplay %}
@@ -23,7 +26,10 @@
     <div class="hometop">
         <div class="inner">
             <div class="innerContent">
-                <h1 class="hometopHeader">{{ hometopHeader }}</h1>
+                <h1 class="hometopHeader">
+                    <span class="desktopVersion">{{ hometopHeader|striptags('<br>')|raw }}</span>
+                    <span class="mobileVersion">{{ headerTextMobile|striptags('<br>')|raw  }}</span>
+                </h1>
                 <div class="hometopSubheader">{{ hometopSubheader }}</div>
                 <div class="hometopLinks">
                     {% for link in hometopLinks.all() %}

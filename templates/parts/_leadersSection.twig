@@ -1,12 +1,12 @@
 <section class="contentSection leadersSection">
     <div class="container">
-        <div class="headerPart">
+        <div class="headerPart" data-aos="fade-up">
             <h3 class="header">{{headerText}}</h3>
         </div>
 
         <div class="row linkTiles">
             {% for oneLink in links.all() %} 
-                {% include('parts/_blockLink') with { 'content': oneLink, 'extraclass': 'col-lg-4' } %}           
+                {% include('parts/_blockLink') with { 'content': oneLink, 'extraclass': 'col-lgx-4 col-md-6' } %}           
             {% endfor %}
         </div>
     </div>

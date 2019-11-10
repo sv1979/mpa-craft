@@ -5,14 +5,47 @@
                 {% if (accent == 'white') %}
                 <img src='/images/logo_white.svg' alt="MPA">
                 {% else %}
-                <img src='/images/mpa_logo.png' alt="MPA">
+                <img src='/images/logo_black.svg' alt="MPA">
                 {% endif %}
             </a>
 
             <div class="rightPart">
                 {{ craft.olivemenus.getMenuHTML('topmenu',{ 'menu-id': 'topmenu', 'menu-class': 'topmenu' }) }}
-                <a href="#" class="btn btnSecondary">Direct Sale</a>
-                <a href="#" class="btn btnPrimary">Online Bidding</a>
+                <div class="rightButtons">
+                    <a target="_blank" href="https://www.thorntons.net.nz/online-bidding-thornton.html#!/marketplace?category=2335&continent=1,2,6,5,4,3" class="btn btnSecondary">Direct Sale</a>
+                    <a target="_blank" href="https://www.thorntons.net.nz/online-bidding-thornton.html#!/" class="btn btnPrimary">Online Bidding</a>
+                </div>
+            </div>
+
+            <div class="mobilePart">
+                <nav class="navbar navbar-expand-lg navbar-dark" id="navbarWrap">
+                    <a class="navbar-brand" href="/">
+                        {% if (accent == 'white') %}
+                        <img src='/images/logo_white.svg' alt="MPA" class="logo logoCollapsed">
+                        {% else %}
+                        <img src='/images/logo_black.svg' alt="MPA" class="logo logoCollapsed">
+                        {% endif %}
+                        <img src='/images/logo_black.svg' alt="MPA" class="logo logoExpanded">
+                    </a>
+                    <button class="navbar-toggler hamburger hamburger--spring"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        {{ craft.olivemenus.getMenuHTML('topmenu',{ 'menu-id': 'mobilemenu', 'menu-class': 'mobilemenu' }) }}
+                    </div>
+                    <div class="buttonsPlace">
+                        <a target="_blank" href="https://www.thorntons.net.nz/online-bidding-thornton.html#!/marketplace?category=2335&continent=1,2,6,5,4,3" class="btn btnSecondary">Direct Sale</a>
+                        <a target="_blank" href="https://www.thorntons.net.nz/online-bidding-thornton.html#!/" class="btn btnPrimary">Online Bidding</a>
+                    </div>
+                </nav>               
             </div>
         </div>
     </div>

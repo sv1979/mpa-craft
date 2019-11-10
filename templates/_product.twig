@@ -1,20 +1,38 @@
 {% extends "base.twig" %}
+{% set pageTitle = entry.seoTitle ? entry.seoTitle : entry.title %}
+{% set pageDescription = entry.seoDescription ? entry.seoDescription : entry.title %}
+{% block extraheadcode %}
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"/>
+{% endblock %}
 
 {% set linkChain = [
     { 'linkText': 'featured products', 'linkUrl': '/products' }
 ] %}
 
 {% set relatedAuction = entry.relatedAuction.one() %}
+{% switch relatedAuction.auctionStatus %}
+    {% case 'workInProgress'  %}
+        {% set status = 'workInProgress' %}
+    {% case 'hidden'  %}
+        {% set status = 'statusHidden' %}    
+    {% default %}
+        {% set status = 'liveNow' %}
+{% endswitch %}
 
+{% set pageTitle = entry.title %}
 {% block content %}
     {% include 'parts/_breadcrumbs' with { 'linkChain' : linkChain } %}
     <div class="productWrap">
         <div class="container productPlace">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-md-6">
+                    <div class="productTitleMobile">
+                        {{entry.title}}
+                    </div>
                     {% include 'parts/_imageWithThumbnails' with {'pictures' : entry.productImages} %}
                 </div>
-                <div class="col-sm-6">
+                <div class="col-md-6">
                     <h1 class="productTitle">{{entry.title}}</h1>
                     <div class="productLinks">
                         <button class="btn btnPrimary" data-toggle="modal" data-target="#contactModal">Enquire</button>
@@ -34,8 +52,14 @@
                                 <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
                                     <div class="productDescription">{{ entry.description }}</div>
                                 </div>
-                                <div class="tab-pane fade auctionDescription" id="auction" role="tabpanel" aria-labelledby="auction-tab">
-                                    <h4>{{ relatedAuction.title }}</h4>
+                                <div class="tab-pane fade relatedAuctionDescription" id="auction" role="tabpanel" aria-labelledby="auction-tab">
+                                    <div>
+                                        <h4 class="relatedAuctionHeader">
+                                            <a class="auctionLink" href={{relatedAuction.url}}>{{ relatedAuction.title }}</a>
+                                        </h4>
+                                        <span class="badge {{status}}">{{ relatedAuction.auctionStatus.label }}</span>
+                                    </div>
+
                                     <div class="infoLine">
                                         <div class="infoPiece date">
                                             <i class="icon far fa-calendar"></i>

@@ -1,10 +1,22 @@
+{% set metaTitle = 'Machinery & Plant Auctions' %}
+{% if pageTitle is defined %}
+  {% set metaTitle = metaTitle ~ ' | ' ~ pageTitle %}
+{% endif %}
+
+{% set metaDescription = 'Machinery & Plant Auctions' %}
+{% if pageDescription is defined %}
+  {% set metaDescription = pageDescription %}
+{% endif %}
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% do view.registerCssFile("@web/assets/dist/app.css") %}
-    <title>Hello, world!</title>
+    <title>{{metaTitle}}</title>
+    <meta name="description" content="{{metaDescription}}">
+    {% block extraheadcode %}{% endblock %}
   </head>
   <body>
     <div id="app">
@@ -15,8 +27,8 @@
         {% block subcontent2 %}{% endblock %}
 
         {% include('parts/footer') %}
-
-        {% do view.registerJsFile("@web/assets/dist/app.js") %} 
     </div>
+
+    {% do view.registerJsFile("@web/assets/dist/app.js") %} 
   </body>
 </html>

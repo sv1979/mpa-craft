@@ -8,13 +8,13 @@
 <footer class="mainFooter">
     <div class="container">
         <div class="logosLine">
-            <img src='/images/logo_white.svg' alt="MPA">
-            <img src='/images/thorntons_logo.svg' alt="Thorntons">
+            <img src='/images/logo_white.svg' alt="MPA" class="mpaLogo">
+            <img src='/images/thorntons_logo.svg' alt="Thorntons" class="thorntonsLogo">
         </div>
 
         <div class="infoPart">
             <div class="inner">
-                <div class="infoBlock">
+                <div class="infoBlock contactBlock">
                     <a href="tel:{{ commonInformation.phoneNumber|replace({' ': ''}) }}" class="link addressLink">
                         {{ commonInformation.phoneNumber }}
                     </a>
@@ -43,7 +43,7 @@
                     {{ craft.olivemenus.getMenuHTML('footerAbout',{ 'menu-id': 'footerAbout', 'menu-class': 'footerMenu' }) }}
                 </div>
 
-                <div class="infoBlock">
+                <div class="infoBlock auctionsBlock">
                     <span class="infoHeader">Our next auctions</span>
                     <div id="footerAbout1" class="menu footerMenu">
                         <ul>
@@ -62,6 +62,11 @@
                 </div>
             </div>
             <img src='/images/aa_logo.svg' alt="AA" class="aalogo_img">
+        </div>
+
+        <div class="mobileLogos">
+            <img src='/images/thorntons_logo.svg' alt="Thorntons" class="thorntonsMobileLogo">
+            <img src='/images/aa_logo.svg' alt="AA" class="aalogoMobileImg">
         </div>
     </div>
 </footer>

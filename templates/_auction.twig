@@ -1,8 +1,18 @@
 {% extends "base.twig" %}
+{% set pageTitle = entry.seoTitle ? entry.seoTitle : entry.title %}
+{% set pageDescription = entry.seoDescription ? entry.seoDescription : entry.title %}
 
 {% set linkChain = [
     { 'linkText': 'auctions', 'linkUrl': '/auctions' }
 ] %}
+{% switch entry.auctionStatus %}
+    {% case 'workInProgress'  %}
+        {% set status = 'workInProgress' %}
+    {% case 'hidden'  %}
+        {% set status = 'statusHidden' %}    
+    {% default %}
+        {% set status = 'liveNow' %}
+{% endswitch %}
 
 {% set galleryImages = entry.galleryImages.all() %}
 
@@ -13,7 +23,11 @@
         <div class="container">
             <div class="auctionHeader">
                 <div class="leftPart">
-                    <h1 class="auctionTitle">{{entry.title}}</h1>
+                    <div class="headerLine">
+                        <h1 class="auctionTitle">{{entry.title}}</h1>
+                        <span class="badge {{status}}">{{ entry.auctionStatus.label }}</span>
+                    </div>
+
 
                     <div class="infoLine">
                         <div class="infoPiece date">
@@ -30,8 +44,7 @@
                             <i class="icon fas fa-map-marker-alt"></i>
                             <span class="label">{{entry.location.parts.number}}, {{entry.location.parts.address}}</span> 
                         </a>
-                    </div>
-                    <div class="infoLine">
+                        <br/>
                         <a class="infoPiece" href="tel:{{entry.phoneNumber|replace({' ': ''})}}">
                             <i class="icon fas fa-phone"></i>
                             <span class="label">{{entry.phoneNumber}}</span> 
@@ -43,7 +56,7 @@
                     </div>
                 </div>
                 <div class="rightPart">
-                    <a href="#" class="btn btnPrimary">Register</a>
+                    <a target="_blank" href="https://www.thorntons.net.nz/online-bidding-thornton.html#!/createAccount" class="btn btnPrimary">Register</a>
                     {% if entry.catalogue.count > 0 %}
                         <a href="{{entry.catalogue.one().url}}" class="btn btnSecondary" target="_blank">View catalogue</a>
                     {% endif %}
@@ -78,15 +91,30 @@
     <div class="auctionContent container">
         <div class="tab-content" id="tabContent">
             <div class="tab-pane fade show active" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
-                <div class="tiles">
+                <div class="tiles row">
+                    {% set counter = 1 %}
                     {% for item in galleryImages %}
-                        <a href="{{item.url}}" data-lightbox="gallery" data-title="{{item.title}}" class="tileItem galleryTile">
-                            <div class="imagePart" style="background-image:url({{item.getUrl('galleryThumbnail')}})">
+                        <a href="{{item.url}}"
+                         data-lightbox="gallery"
+                         data-counter={{counter}}
+                         data-title="{{item.title}}"
+                         class="col-lgx-3 col-md-6 col-6 tileItem galleryTile commentedClass__loadable" data-aos="fade-up">
+                            <div class="imagePart to_lazyload"
+                             {# data-imagesource="background-image:url({{item.getUrl('galleryThumbnail')}})" #}
+                             data-src={{item.getUrl('sliderThumbnail')}}
+                             >
                                 <div class="imageTitle">{{item.title}}</div>
                             </div>
                         </a>
+                        {% set counter = counter + 1 %}
                     {% endfor %}
                 </div>
+                {# Show 12 images and load-more button if more than 12 #}
+                {# {% if counter > 12 %}                
+                    <div class="loadPlace">
+                        <button class="btn btnSecondary" id="loadMore">Load more</button>
+                    </div>
+                {% endif %} #}
             </div>
             <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
                 <div class="row">
@@ -106,12 +134,14 @@
             </div>
             <div class="tab-pane fade" id="terms" role="tabpanel" aria-labelledby="terms-tab">
                 <h5 class="detailsHeader">Terms and Conditions</h5>
-                {{entry.termsAndConditions}}
+                <div class="auctionDescription">
+                    {{entry.termsAndConditions}}
+                </div>
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block subcontent %}
-    {% include 'parts/_bottomForm' %}
+    {% include 'parts/_bottomForm' with { 'no_animation': true } %}
 {% endblock %}

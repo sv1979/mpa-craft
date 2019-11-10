@@ -1,5 +1,6 @@
 {% extends "base.twig" %}
-
+{% set pageTitle = entry.seoTitle ? entry.seoTitle : entry.title %}
+{% set pageDescription = entry.seoDescription ? entry.seoDescription : entry.title %}
 {% set articlesToShow = craft.entries()
     .section('articles')
     .orderBy('calendarDate desc')
@@ -11,11 +12,11 @@
 
     <section class="contentSection">
         <div class="container">
-            <div class="tiles">
+            <div class="tiles row">
                 {% for article in articlesToShow %} 
                     {% include('parts/_articleTile') with { 
                         'article': article,
-                        'extraclass': 'listingTile',
+                        'extraclass': 'col-lgx-3 col-md-6',
                         } %}            
                 {% endfor %}
 

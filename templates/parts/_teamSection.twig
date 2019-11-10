@@ -1,12 +1,12 @@
 <section class="contentSection teamSection" id="team">
     <div class="container">
-        <div class="headerPart">
+        <div class="headerPart" data-aos="fade-up">
             <h3 class="header">Meet our Team</h3>
         </div>
 
-        <div class="tiles">
+        <div class="tiles row">
             {% for person in people %} 
-                {% include('parts/_personTile') with { 'person': person } %}            
+                {% include('parts/_personTile') with { 'person': person, 'extraclass': 'col-lgx-3 col-md-6' } %}            
             {% endfor %}
 
             <div class="tileItem emptyTile"></div>

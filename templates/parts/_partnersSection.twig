@@ -1,12 +1,12 @@
-<section class="contentSection partnersSection">
+<section class="contentSection partnersSection" data-aos="fade-up">
     <div class="container">
         <div class="headerPart">
             <h3 class="header">Our Partners</h3>
         </div>
 
-        <div class="parnerLogos row">
+        <div class="partnerLogos">
             {% for logo in partners %}
-                <div class="col-sm logoPlace">
+                <div class="logoPlace">
                     <img src="{{logo.url}}" alt="{{logo.title}}" class="logoImg">
                 </div>
             {% endfor %}

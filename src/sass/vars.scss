@@ -1,7 +1,7 @@
 $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
-$breakpoint-xl: 1400px;
+$breakpoint-xl: 1367px;
 
 $grid-breakpoints: (
   xs: 0,
@@ -9,7 +9,7 @@ $grid-breakpoints: (
   md: 768px,
   lg: 992px,
   lgx: 1200px,
-  xl: 1470px
+  xl: 1439px
 ) !default;
 
 $container-max-widths: (
@@ -17,10 +17,15 @@ $container-max-widths: (
   md: 720px,
   lg: 960px,
   lgx: 1170px,
-  xl: 1430px
+  xl: 1397px
 ) !default;
 
+$screen-xl: 1437px;
 $regular-desktop: 1200px;
+$screen-tablet: 992px;
+$screen-mobile: 762px;
+$screen-small: 576px;
+$screen-tiny: 361px;
 
 // COLORS
 $yellow: #ffe900;

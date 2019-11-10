@@ -1,6 +1,12 @@
+{% set noAnimation = no_animation is defined ? true : false %}
+
 <section class="bottomFormSection">
     <div class="container">
-        <div class="inner">
+        {% if noAnimation %}
+            <div class="inner">
+        {% else %}
+            <div class="inner" data-aos="fade-up">
+        {% endif %}
             <h3 class="header">Join our Mailing List</h3>
             <span class="subheader">
                 {{sitewideContent.bottomFormIntro}}

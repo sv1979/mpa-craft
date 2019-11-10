@@ -14,27 +14,27 @@ body {
     font-family: 'DM Sans', sans-serif;
 }
 
-@mixin headerBold($size: 40px) {
+@mixin headerBold($size: 4em) {
     font-size: $size;
-    letter-spacing: calc(#{$size} / -12);
+    letter-spacing: calc(#{$size} / -60);
     font-weight: 700;
 }
 
-@mixin subheaderBold($size: 16px) {
+@mixin subheaderBold($size: 1.6em) {
     font-size: $size;
     letter-spacing: -.5px;
     font-weight: 500;
 }
 
-@mixin textReg($size: 16px) {
+@mixin textReg($size: 1.6em) {
     font-size: $size;
     letter-spacing: -.5px;
     font-weight: 400;
 }
 
-@mixin textMediumWide($size: 16px) {
+@mixin textMediumWide($size: 1.6em) {
     font-size: $size;
-    letter-spacing: calc(#{$size} / 12);
+    letter-spacing: calc(#{$size} / 8);
     font-weight: 500;
 }
 
@@ -45,14 +45,14 @@ body {
 .btn {
     text-transform: uppercase;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: .05em;
     padding: 13px 10px 11px;
     display: inline-block;
-    min-width: 180px;
+    min-width: 160px;
     border-radius: 0;
     border-width: 2px;
     border-style: solid;
-    font-size: 14px;
+    font-size: 1.4em;
     position: relative;
     &.btnPrimary {
         background-color: $yellow;
@@ -65,9 +65,38 @@ body {
         background-color: transparent;
         color: currentColor;
         border-color: currentColor;
+        overflow: hidden;
+        transition: color 0.4s;
+        &::before, &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            height: 100%;
+            background: transparent; /* onhover background color */
+            z-index: -1;
+            transform: translate3D(0,-100%,0);
+            transition: all .5s;
+        }
+        &::after {
+            transform: translate3D(0,100%,0);
+        }
+        &::before {
+            z-index: -2;
+        }
         &:hover {
             border-color: $yellow;
-            color: $yellow;
+            color: black;
+            &::after, &::before {
+                background-color: $yellow;
+                transform: translate3D(0,-48%,0);
+                transition: all .5s;
+            }
+            &::after {
+                transform: translate3D(0,48%,0);
+            }
         }
     }
     &.btnBlack {

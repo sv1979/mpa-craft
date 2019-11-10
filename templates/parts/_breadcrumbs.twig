@@ -1,6 +1,6 @@
 <div class="breadcrumbsPart">
     <div class="container">
-        <ul class="breadcrumbs">
+        {# <ul class="breadcrumbs">
             <li class="breadcrumbsItem">
                 <a href="{{ siteUrl }}" class="breadcrumbsText">Home</a>               
             </li>
@@ -14,6 +14,15 @@
             <li class="breadcrumbsItem">
                 <span class="breadcrumbsText">{{entry.title}}</span>               
             </li>
-        </ul>
+        </ul> #}
+        <div class="breadcrumbs">
+            <a href="{{ siteUrl }}" class="breadcrumbsItem breadcrumbsText">Home</a>   
+            {% if linkChain is defined and linkChain|length > 0 %}
+                {% for onelink in linkChain %}
+                    <a href="{{ onelink.linkUrl }}" class="breadcrumbsItem breadcrumbsText">{{ onelink.linkText }}</a>                
+                {% endfor %}
+            {% endif %}
+            <span class="breadcrumbsItem breadcrumbsText trail">{{entry.title}}</span>    
+        </div>
     </div>
 </div>

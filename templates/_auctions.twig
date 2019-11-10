@@ -1,4 +1,6 @@
 {% extends "base.twig" %}
+{% set pageTitle = entry.seoTitle ? entry.seoTitle : entry.title %}
+{% set pageDescription = entry.seoDescription ? entry.seoDescription : entry.title %}
 
 {% set auctionsToShow = craft.entries()
     .section('auction')
@@ -11,17 +13,14 @@
 
     <section class="contentSection">
         <div class="container">
-            <div class="tiles">
+            <div class="tiles row">
                 {% for auction in auctionsToShow %} 
                     {% include('parts/_auctionTile') with { 
                         'auction': auction,
-                        'extraclass': 'listingTile',
-                        'showCount' : true
+                        'extraclass': 'col-lgx-3 col-md-6',
+                        'showCount' : false
                         } %}            
                 {% endfor %}
-
-                <div class="tileItem emptyTile"></div>
-                <div class="tileItem emptyTile"></div>
             </div>
         </div>
     </section>

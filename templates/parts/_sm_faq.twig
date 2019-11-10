@@ -6,17 +6,17 @@
         {% for question in questions %} 
               <div class="card faqCard">
                 <div class="card-header" id="{{question.id}}">
-                    <h2 class="mb-0">
+                    <div class="mb-0">
                         <button class="faqButton btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#q{{question.id}}" aria-expanded="true" aria-controls="collapseOne">
                             <span class="questionText">{{question.title}}</span>
                             <span class="sign plus">+</span>
                             <span class="sign minus">-</span>
                         </button>
-                    </h2>
+                    </div>
                 </div>
 
                 <div id="q{{question.id}}" class="collapse" aria-labelledby="{{question.id}}" data-parent="#faqs">
-                    <div class="card-body">
+                    <div class="card-body faqAnswer">
                         {{question.description}}
                     </div>
                 </div>

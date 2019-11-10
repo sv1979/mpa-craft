@@ -1,4 +1,6 @@
 {% extends "base.twig" %}
+{% set pageTitle = entry.seoTitle ? entry.seoTitle : entry.title %}
+{% set pageDescription = entry.seoDescription ? entry.seoDescription : entry.title %}
 
 {% block content %}
     {% include 'parts/_breadcrumbs' %}
@@ -8,14 +10,14 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-6" id="location">
+            <div class="col-md-6 " id="location" data-aos="fade-up">
                 {% include 'parts/_sm_location' with {
                     'headertext': entry.headerText,
                     'subheader': entry.subheaderText,
                     'description': entry.description,
                     } %}
             </div>
-            <div class="col-sm-6" id="faqs">
+            <div class="col-md-6 " id="faqs" data-aos="fade-up">
                 {% include 'parts/_sm_faq' with {
                     'headertext': entry.faqSubheader,
                     'questions': entry.faqToDisplay.all()
