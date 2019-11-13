@@ -1,5 +1,5 @@
 {% set defaultThumbnail = sitewideContent.auctionPlaceholderImage.one().url %}
-{% set articleThumbnail = article.thumbnailImage.one() ? article.thumbnailImage.one().getUrl('galleryThumbnail') : defaultThumbnail %}
+{% set articleThumbnail = article.thumbnailImage.one() ? article.thumbnailImage.one().getUrl() : defaultThumbnail %}
 
 {% set className = extraclass is defined ? extraclass : '' %}
 {% set articleCategory = 'Industry News' %}
