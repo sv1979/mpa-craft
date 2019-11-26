@@ -5,7 +5,12 @@
 <div class="tileItem personTile {{className}}" data-aos="fade-up">
     <div style="background-image:url({{personThumbnail}})" class="tileImage"></div>
     <div class="tileTitle">
-        <span class="title">{{person.title}}</span>
+        <span class="title">
+            {{person.title}}
+            {% if person.emailAddress is defined and person.emailAddress != '' %}
+                <br/><a href="mailto:{{ person.emailAddress }}">{{ person.emailAddress }}</a>
+            {% endif %}
+        </span>
     </div>
     <div class="tileInfo">
         <div class="infoTop">
