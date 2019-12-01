@@ -11,14 +11,17 @@
 ] %}
 
 {% set relatedAuction = entry.relatedAuction.one() %}
-{% switch relatedAuction.auctionStatus %}
-    {% case 'workInProgress'  %}
-        {% set status = 'workInProgress' %}
-    {% case 'hidden'  %}
-        {% set status = 'statusHidden' %}    
-    {% default %}
-        {% set status = 'liveNow' %}
-{% endswitch %}
+
+{% if relatedAuction != null %}
+    {% switch relatedAuction.auctionStatus %}
+        {% case 'workInProgress'  %}
+            {% set status = 'workInProgress' %}
+        {% case 'hidden'  %}
+            {% set status = 'statusHidden' %}    
+        {% default %}
+            {% set status = 'liveNow' %}
+    {% endswitch %}
+{% endif %}
 
 {% set pageTitle = entry.title %}
 {% block content %}
@@ -42,9 +45,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Product Details</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="auction-tab" data-toggle="tab" href="#auction" role="tab" aria-controls="auction" aria-selected="false">Auction Details</a>
-                                </li>
+                                {% if relatedAuction != null %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="auction-tab" data-toggle="tab" href="#auction" role="tab" aria-controls="auction" aria-selected="false">Auction Details</a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </div>
                         <div class="productContent">
@@ -53,39 +58,41 @@
                                     <div class="productDescription">{{ entry.description }}</div>
                                 </div>
                                 <div class="tab-pane fade relatedAuctionDescription" id="auction" role="tabpanel" aria-labelledby="auction-tab">
-                                    <div>
-                                        <h4 class="relatedAuctionHeader">
-                                            <a class="auctionLink" href={{relatedAuction.url}}>{{ relatedAuction.title }}</a>
-                                        </h4>
-                                        <span class="badge {{status}}">{{ relatedAuction.auctionStatus.label }}</span>
-                                    </div>
-
-                                    <div class="infoLine">
-                                        <div class="infoPiece date">
-                                            <i class="icon far fa-calendar"></i>
-                                            <span class="label">{{relatedAuction.calendarDate|date('l, d mm')}}</span> 
+                                    {% if relatedAuction != null %}
+                                        <div>
+                                            <h4 class="relatedAuctionHeader">
+                                                <a class="auctionLink" href={{relatedAuction.url}}>{{ relatedAuction.title }}</a>
+                                            </h4>
+                                            <span class="badge {{status}}">{{ relatedAuction.auctionStatus.label }}</span>
                                         </div>
-                                        <div class="infoPiece time">
-                                            <i class="icon far fa-clock"></i>
-                                            <span class="label">{{relatedAuction.auctionTime}}</span> 
+                                    
+                                        <div class="infoLine">
+                                            <div class="infoPiece date">
+                                                <i class="icon far fa-calendar"></i>
+                                                <span class="label">{{relatedAuction.calendarDate|date('l, d mm')}}</span> 
+                                            </div>
+                                            <div class="infoPiece time">
+                                                <i class="icon far fa-clock"></i>
+                                                <span class="label">{{relatedAuction.auctionTime}}</span> 
+                                            </div>
+                                            <a class="infoPiece location"
+                                            href="https://maps.google.com/?q={{ relatedAuction.location.address|url_encode }}&output=classic"
+                                            target="_blank">
+                                                <i class="icon fas fa-map-marker-alt"></i>
+                                                <span class="label">{{relatedAuction.location.parts.number}}, {{relatedAuction.location.parts.address}}</span> 
+                                            </a>
                                         </div>
-                                        <a class="infoPiece location"
-                                        href="https://maps.google.com/?q={{ relatedAuction.location.address|url_encode }}&output=classic"
-                                        target="_blank">
-                                            <i class="icon fas fa-map-marker-alt"></i>
-                                            <span class="label">{{relatedAuction.location.parts.number}}, {{relatedAuction.location.parts.address}}</span> 
-                                        </a>
-                                    </div>
-                                    <div class="infoLine">
-                                        <a class="infoPiece" href="tel:{{relatedAuction.phoneNumber|replace({' ': ''})}}">
-                                            <i class="icon fas fa-phone"></i>
-                                            <span class="label">{{relatedAuction.phoneNumber}}</span> 
-                                        </a>
-                                        <a class="infoPiece" href="mailto:{{relatedAuction.emailAddress}}">
-                                            <i class="icon far fa-envelope"></i>
-                                            <span class="label">{{relatedAuction.emailAddress}}</span> 
-                                        </a>
-                                    </div>
+                                        <div class="infoLine">
+                                            <a class="infoPiece" href="tel:{{relatedAuction.phoneNumber|replace({' ': ''})}}">
+                                                <i class="icon fas fa-phone"></i>
+                                                <span class="label">{{relatedAuction.phoneNumber}}</span> 
+                                            </a>
+                                            <a class="infoPiece" href="mailto:{{relatedAuction.emailAddress}}">
+                                                <i class="icon far fa-envelope"></i>
+                                                <span class="label">{{relatedAuction.emailAddress}}</span> 
+                                            </a>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
