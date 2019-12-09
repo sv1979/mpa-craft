@@ -15,8 +15,8 @@
             <span class="label">{{article.calendarDate|date('l, d mm')}}</span> 
             <span class="label">{{articleCategory}}</span> 
         </div>
-        <div class="articleIntro">
-            {{articleIntro|length > 200 ? articleIntro|slice(0, 200)~'...' : articleIntro}}
+        <div class="articleIntro">           
+            {{(articleIntro|length > 200 ? articleIntro|slice(0, 200)~'...' : articleIntro)|raw}}         
         </div>
     </div>
 </div>
