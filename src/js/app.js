@@ -19,8 +19,10 @@ $(document).ready(function(){
     initNavbar();
     initMobileMenu();
     AOS.init();
-    lightbox2.option({ disableScrolling: true });
+    lightbox2.option({ disableScrolling: false });
 
+    $('.lb-close').attr('href', "javascript:;");
+    
     function initMobileMenu() {
         const dropdownLink = $('.has-dropdown', '#mobilemenu');
         dropdownLink.on('click', (e) => {
